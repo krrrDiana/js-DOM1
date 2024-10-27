@@ -1,39 +1,70 @@
-// Отримати елемент за ID
-const title = document.getElementById('title');
-console.log('Елемент за ID:', title);
+let currentInput = ''; 
 
-// Змінити текст заголовка через 3 секунди
-setTimeout(() => {
-    title.textContent = 'DOM у дії!';
-}, 3000);
-
-// Отримати всі елементи з класом 'item'
-const items = document.getElementsByClassName('item');
-console.log('Елементи з класом "item":', items);
-
-// Змінити текст другого пункту
-if (items.length > 1) {
-    items[1].textContent = 'Змінений пункт 2';
+function clearDisplay() {
+    currentInput = '';
+    document.getElementById('display').value = '';
+    hideMessage();
 }
 
-// Отримати перший елемент списку за селектором
-const firstItem = document.querySelector('#itemList .item');
-console.log('Перший пункт списку:', firstItem);
+function appendToDisplay(value) {
+    const display = document.getElementById('display');
 
-// Додати обробник події для кнопки зміни тексту
-document.getElementById('changeTextButton').addEventListener('click', function() {
-    title.textContent = 'Текст змінився!';
-});
+    const operators = ['+', '-', '*', '/'];
+    if (operators.includes(value) && currentInput === '') {
+        showMessage('Спочатку введіть число.');
+        return;
+    }
 
-const arrayOfItems = document.getElementsByClassName('item');
-console.log(arrayOfItems.length, "FLJKSNfKSNf")
+    if (operators.includes(value)) {
+        if (currentInput === '' || operators.includes(currentInput.slice(-1))) {
+       
+            currentInput = currentInput.slice(0, -1) + value;
+        } else {
+            currentInput += value;
+        }
+    }
+     else {
+        currentInput += value; 
+    }
 
-// Додати обробник події для кнопки додавання пункту
-document.getElementById('addItemButton').addEventListener('click', function() {
-    const newItem = document.createElement('li');
-    const arrayOfItems = document.getElementsByClassName('item');
-    console.log(arrayOfItems.length, "FLJKSNfKSNf")
-    newItem.textContent = `Новий пункт ${arrayOfItems.length + 1}`;
-    newItem.className = 'item';
-    document.getElementById('itemList').appendChild(newItem);
-});
+    hideMessage();
+}
+
+function showMessage(message) {
+    const messageElement = document.getElementById('message');
+    messageElement.innerText = message;
+    messageElement.style.display = 'block';
+}
+
+function hideMessage() {
+    const messageElement = document.getElementById('message');
+    messageElement.style.display = 'none';
+}
+
+function calculateResult() {
+    const display = document.getElementById('display');
+
+    if (currentInput.trim() === '') {
+        showMessage('Введіть вираз для обчислення.');
+        return;
+    }
+
+    const regex = /^[0-9+\-*/.]+$/; 
+    if (!regex.test(currentInput)) {
+        showMessage('Введено некоректні дані. Використовуйте лише цифри та оператори.');
+        clearDisplay();
+        return;
+    }
+
+
+    try {
+        const result = eval(currentInput);
+        display.value = result % 1 === 0 ? result : result.toFixed(2);
+    } catch (error) {
+        display.value = 'ПОМИЛКА'; 
+        showMessage('Виникла помилка при обчисленні. Перевірте вираз.');
+        clearDisplay();
+    } finally {
+        currentInput = ''; 
+    }
+}
