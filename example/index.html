@@ -3,23 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOM Приклади</title>
     <link rel="stylesheet" href="example.css">
+    <title>Калькулятор</title>
 </head>
 <body>
-    <h1 id="title">Привіт, світ!</h1>
-    <p class="description">Це приклад роботи з DOM.</p>
-    <ul id="itemList">
-        <li class="item">Пункт 1</li>
-        <li class="item">Пункт 2</li>
-        <li class="item">Пункт 3</li>
-    </ul>
-    <div class="buttons">
-      <button id="changeTextButton">Змінити текст</button>
-      <button id="addItemButton">Додати пункт</button>
-    </div>
-   
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div id="message" style="display:none; color: red; margin-top: 10px;"></div>
+        <div class="buttons">
+      
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('00')">00</button>
+           
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="appendToDisplay('+')">+</button>
+            <button class="дор" onclick="calculateResult()">=</button>
+            <button onclick="clearDisplay()">C</button>
 
+        </div>
+    </div>
     <script src="example.js"></script>
 </body>
 </html>
