@@ -2,7 +2,7 @@ let currentInput = '';
 
 function clearDisplay() {
     currentInput = '';
-    document.getElementById('display').value = '';
+    document.getElementById('display').value = ''; 
     hideMessage();
 }
 
@@ -17,17 +17,16 @@ function appendToDisplay(value) {
 
     if (operators.includes(value)) {
         if (currentInput === '' || operators.includes(currentInput.slice(-1))) {
-       
-            currentInput = currentInput.slice(0, -1) + value;
+            currentInput = currentInput.slice(0, -1) + value; 
         } else {
-            currentInput += value;
+            currentInput += value; 
         }
-    }
-     else {
+    } else {
         currentInput += value; 
     }
 
     hideMessage();
+    document.getElementById('display').value = currentInput;
 }
 
 function showMessage(message) {
@@ -56,15 +55,14 @@ function calculateResult() {
         return;
     }
 
-
     try {
-        const result = eval(currentInput);
-        display.value = result % 1 === 0 ? result : result.toFixed(2);
+        const result = eval(currentInput); 
+        display.value = result % 1 === 0 ? result : result.toFixed(2); 
     } catch (error) {
         display.value = 'ПОМИЛКА'; 
         showMessage('Виникла помилка при обчисленні. Перевірте вираз.');
         clearDisplay();
     } finally {
-        currentInput = ''; 
+        currentInput = '';
     }
 }
